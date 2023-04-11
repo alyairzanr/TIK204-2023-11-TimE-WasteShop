@@ -8,19 +8,24 @@ import sqlite3
 
 app = Flask(__name__,
             template_folder='templates',
-	          static_folder='static')
+	        static_folder='static')
 
 @app.route('/')
-def singIn():
-  return app.send_static_file('signIn.html')
+def singUp():
+  error = ""
+  return render_template('signUp.j2', error=error)
 
 @app.route('/home', methods=["POST"])
-def signIn():
+def login():
   username = request.form["username"]
   email = request.form["email"]
   password = request.form["password"]
   rpassword = request.form["rpassword"]
-  return app.send_static_file('login.html')
+  if password == rpassword:
+     return app.send_static_file('login.html') # mengarahkan ke halaman berikutnya
+  else:
+    error = "Password tidak sama"
+    return render_template('signUp.j2', error=error) # menampilkan pesan kesalahan pada halaman yang sama
 
 
 if __name__ == '__main__':
