@@ -46,7 +46,7 @@ def home():
   password = request.form["password"]
   
   daftarUsername = User.daftarUsername()
-  # cek username dan password
+  # cek username dan password 
   if username in daftarUsername:
     if password == User.cekPassword(username):
       return render_template('home.j2', username=username)
